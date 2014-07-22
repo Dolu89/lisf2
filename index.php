@@ -67,9 +67,9 @@
 			$months = array_diff(scandir($install_path.$_GET['year']), $exclude_list);
 			foreach ($months as $month) {
 				if ($month == $_GET['month'])
-					echo $month.'<br>';
+					echo transformIntToMonth($month).'<br>';
 				else
-					echo '<a href="index.php?year='.$_GET["year"].'&month='.$month.'">'.$month.'</a><br>';
+					echo '<a href="index.php?year='.$_GET["year"].'&month='.$month.'">'.transformIntToMonth($month).'</a><br>';
 			}
 			list_day();
 		}
@@ -119,6 +119,33 @@
 				++$i;
 			}
 			return $months[count($months)-1];
+		}
+
+		function transformIntToMonth($int){
+			if ($int == 01)
+				return "January";
+			if ($int == 02)
+				return "February";
+			if ($int == 03)
+				return "March";
+			if ($int == 04)
+				return "April";
+			if ($int == 05)
+				return "May";
+			if ($int == 06)
+				return "June";
+			if ($int == 07)
+				return "July";
+			if ($int == 08)
+				return "August";
+			if ($int == 09)
+				return "September";
+			if ($int == 10)
+				return "October";
+			if ($int == 11)
+				return "November";
+			if ($int == 12)
+				return "December";
 		}
 
 		/* Start program */

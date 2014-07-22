@@ -117,7 +117,10 @@
 		}
 
 		/* Start program */
-		if ($_GET['year'] == null) getLastDefaultDate();
+		if ($_GET['year'] == null || $_GET['month'] == null) {
+			getLastDefaultDate();
+			header("Location: index.php?year=".$_GET['year']."&month=".$_GET['month']);
+		}
 		
 		list_year();
 

@@ -59,7 +59,7 @@
 				if ($year == $_GET['year'])
 					echo $year;
 				else
-					echo '<a href="index.php?year='.$year.'&month='.getLastMonthByYear($year).'">'.$year.'</a>';
+					echo '<a href="/'.$year.'/'.getLastMonthByYear($year).'">'.$year.'</a>';
 				++$i;
 			}
 			echo "</div>";

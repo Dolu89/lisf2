@@ -93,7 +93,7 @@
 				echo $day.'<br>';
 				foreach ($files as $file) {
 					$linkFile = $day."/".$file;
-					if (checkFileIsImage($linkFile)){
+					if (checkFileIsImage($install_path.$_GET['year']."/".$_GET['month']."/".$linkFile)){
 						$newFormatLink = str_replace(" ", "%20", $linkFile);
 						$newFormatFile = str_replace(" ", "%20", $file);
 						echo "<a href='".$newFormatLink."'><img src='".$newFormatLink."' width='106' height='106' alt='".$newFormatFile."'></a>";

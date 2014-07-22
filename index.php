@@ -46,7 +46,6 @@
 
 		function list_year(){
 			global $exclude_list, $install_path;
-			$todayYear = date("Y");
 			$tempYears = array_diff(scandir($install_path), $exclude_list);
 			$i = 0;
 			foreach ($tempYears as $tempYear) {
@@ -54,7 +53,7 @@
 				++$i;
 			}
 			foreach ($years as $year) {
-				if ($year == $todayYear)
+				if ($year == $_GET['year'])
 					echo $year.'<br>';
 				else
 					echo '<a href="index.php?year='.$year.'&month='.getLastMonthByYear($year).'">'.$year.'</a><br>';
@@ -67,11 +66,10 @@
 			global $exclude_list, $install_path;
 			$months = array_diff(scandir($install_path.$_GET['year']), $exclude_list);
 			foreach ($months as $month) {
-				$todayMonth = date("m");
-				if ($month == $todayMonth)
+				if ($month == $_GET['month'])
 					echo $month.'<br>';
 				else
-					echo '<a href="index.php?year='.$_GET["year"].'&month'.$_GET["month"].'">'.$month.'</a><br>';
+					echo '<a href="index.php?year='.$_GET["year"].'&month='.$month.'">'.$month.'</a><br>';
 			}
 			list_day();
 		}

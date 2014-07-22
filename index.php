@@ -48,37 +48,48 @@
 			global $exclude_list, $install_path;
 			$tempYears = array_diff(scandir($install_path), $exclude_list);
 			$i = 0;
+			echo "<div>";
 			foreach ($tempYears as $tempYear) {
 				$years[$i] = $tempYear;
 				++$i;
 			}
+			$i = 0;
 			foreach ($years as $year) {
+				if ($i > 0) echo " - ";
 				if ($year == $_GET['year'])
-					echo $year.'<br>';
+					echo $year;
 				else
-					echo '<a href="index.php?year='.$year.'&month='.getLastMonthByYear($year).'">'.$year.'</a><br>';
+					echo '<a href="index.php?year='.$year.'&month='.getLastMonthByYear($year).'">'.$year.'</a>';
+				++$i;
 			}
-			echo "<br>";
+			echo "</div>";
 			list_month($years);
 		}
 
 		function list_month(){
 			global $exclude_list, $install_path;
 			$months = array_diff(scandir($install_path.$_GET['year']), $exclude_list);
+			$i = 0;
+			echo "<div>";
 			foreach ($months as $month) {
+				if ($i > 0) echo " - ";
 				if ($month == $_GET['month'])
-					echo transformIntToMonth($month).'<br>';
+					echo transformIntToMonth($month);
 				else
-					echo '<a href="index.php?year='.$_GET["year"].'&month='.$month.'">'.transformIntToMonth($month).'</a><br>';
+					echo '<a href="index.php?year='.$_GET["year"].'&month='.$month.'">'.transformIntToMonth($month).'</a>';
+				++$i;
 			}
+			echo "</div>";
 			list_day();
 		}
 
 		function list_day(){
 			global $exclude_list, $install_path;
 			$days = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']), $exclude_list);
+			echo "<div>";
 			foreach ($days as $day) {
 				$files = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']."/".$day), $exclude_list);
+				echo "<div>";
 				echo $day.'<br>';
 				foreach ($files as $file) {
 					$linkFile = $install_path.$_GET['year']."/".$_GET['month']."/".$day."/".$file;
@@ -88,7 +99,9 @@
 						echo "<a href='".$newFormatLink."'><img src='".$newFormatLink."' width='106' height='106' alt='".$newFormatFile."'></a>";
 					}
 				}
+				echo "</div>";
 			}
+			echo "</div>";
 		}
 
 		function getLastDefaultDate(){

@@ -44,8 +44,7 @@
 			return $isImage;
 		}
 
-		function list_year()
-		{
+		function list_year(){
 			global $exclude_list, $install_path;
 			$todayYear = date("Y");
 			$tempYears = array_diff(scandir($install_path), $exclude_list);
@@ -58,23 +57,38 @@
 				if ($year == $todayYear)
 					echo $year.'<br>';
 				else
-					echo '<a href="#">'.$year.'</a><br>';
+					echo '<a href="index.php?year='.$year.'&month='.getLastMonthByYear($year).'">'.$year.'</a><br>';
 			}
 			echo "<br>";
 			list_month($years);
 		}
 
-		function list_month()
-		{
+		function list_month(){
 			global $exclude_list, $install_path;
-			$todayYear = date("Y");
 			$months = array_diff(scandir($install_path.$_GET['year']), $exclude_list);
 			foreach ($months as $month) {
-				echo '<a href="#">'.$month.'</a><br>';
+				$todayMonth = date("m");
+				if ($month == $todayMonth)
+					echo $month.'<br>';
+				else
+					echo '<a href="index.php?year='.$_GET["year"].'&month'.$_GET["month"].'">'.$month.'</a><br>';
+			}
+			list_day();
+		}
+
+		function list_day(){
+			global $exclude_list, $install_path;
+			$days = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']), $exclude_list);
+			foreach ($days as $day) {
+				$files = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']."/".$day), $exclude_list);
+				echo $day.'<br>';
+				foreach ($files as $file) {
+					echo $file."<br>";
+				}
 			}
 		}
 
-		function getLastDate(){
+		function getLastDefaultDate(){
 			global $exclude_list, $install_path;
 			$tempYears = array_diff(scandir($install_path), $exclude_list);
 			$i = 0;
@@ -91,11 +105,21 @@
 				++$i;
 			}
 			$_GET['month'] = $months[count($months)-1];
+		}
 
+		function getLastMonthByYear($year){
+			global $exclude_list, $install_path;
+			$tempMonths = array_diff(scandir($install_path.$year), $exclude_list);
+			$i = 0;
+			foreach ($tempMonths as $tempMonth) {
+				$months[$i] = $tempMonth;
+				++$i;
+			}
+			return $months[count($months)-1];
 		}
 
 		/* Start program */
-		if ($_GET['year'] == null) getLastDate();
+		if ($_GET['year'] == null) getLastDefaultDate();
 		
 		list_year();
 

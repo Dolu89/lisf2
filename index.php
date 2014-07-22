@@ -64,19 +64,39 @@
 			list_month($years);
 		}
 
-		function list_month($years)
+		function list_month()
 		{
 			global $exclude_list, $install_path;
 			$todayYear = date("Y");
-			$yearsCount = count($years);
-			$year = $years[$yearsCount - 1];
-			$months = array_diff(scandir($install_path.$year), $exclude_list);
+			$months = array_diff(scandir($install_path.$_GET['year']), $exclude_list);
 			foreach ($months as $month) {
 				echo '<a href="#">'.$month.'</a><br>';
 			}
 		}
 
+		function getLastDate(){
+			global $exclude_list, $install_path;
+			$tempYears = array_diff(scandir($install_path), $exclude_list);
+			$i = 0;
+			foreach ($tempYears as $tempYear) {
+				$years[$i] = $tempYear;
+				++$i;
+			}
+			$_GET['year'] = $years[count($years)-1];
+
+			$tempMonths = array_diff(scandir($install_path.$_GET['year']), $exclude_list);
+			$i = 0;
+			foreach ($tempMonths as $tempMonth) {
+				$months[$i] = $tempMonth;
+				++$i;
+			}
+			$_GET['month'] = $months[count($months)-1];
+
+		}
+
 		/* Start program */
+		if ($_GET['year'] == null) getLastDate();
+		
 		list_year();
 
 	 ?>

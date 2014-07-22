@@ -81,7 +81,12 @@
 				$files = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']."/".$day), $exclude_list);
 				echo $day.'<br>';
 				foreach ($files as $file) {
-					echo $file."<br>";
+					$linkFile = $install_path.$_GET['year']."/".$_GET['month']."/".$day."/".$file;
+					if (checkFileIsImage($linkFile)){
+						$newFormatLink = str_replace(" ", "%20", $linkFile);
+						$newFormatFile = str_replace(" ", "%20", $file);
+						echo "<a href='".$newFormatLink."'><img src='".$newFormatLink."' width='106' height='106' alt='".$newFormatFile."'></a>";
+					}
 				}
 			}
 		}

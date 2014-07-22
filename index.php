@@ -76,7 +76,7 @@
 				if ($month == $_GET['month'])
 					echo transformIntToMonth($month);
 				else
-					echo '<a href="index.php?year='.$_GET["year"].'&month='.$month.'">'.transformIntToMonth($month).'</a>';
+					echo '<a href="/'.$_GET["year"].'/'.$month.'">'.transformIntToMonth($month).'</a>';
 				++$i;
 			}
 			echo "</div>";

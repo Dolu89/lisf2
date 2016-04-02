@@ -15,6 +15,13 @@ Si vous souhaitez simplement installer le script à la racine, laissez la variab
 
 Puis mettez simplement le fichier *index.php* à l'endroit où vous souhaitez lister vos dossiers/fichiers.
 
+Enfin, placez ces règles dans le vhost apache2 (le module **mod_rewrite** d'apache2 doit être **activé**)
+```
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^/([0-9]+)/([0-9]+)/$ /index.php?year=$1&month=$2 [L]
+```
+
 Convention à respecter
 ====
 L'architecture des dossiers doit être sous la forme /2016/04/02/ (2 avril 2016)

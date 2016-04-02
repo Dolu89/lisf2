@@ -38,7 +38,7 @@
             }
             .main{
                 margin-top:15px;
-                width:75%;
+                width:50%;
                 margin-left:auto;
                 margin-right:auto;
             }
@@ -62,6 +62,11 @@
             }
             a.fileLink:hover{
                 color:#2c3e50;
+            }
+            @media only screen and (max-width: 705px) {
+                .main{
+                    width:100%;
+                }
             }
         </style>
 </head>

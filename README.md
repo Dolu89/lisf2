@@ -18,27 +18,28 @@ Puis mettez simplement le fichier *index.php* à l'endroit où vous souhaitez li
 Convention à respecter
 ====
 L'architecture des dossiers doit être sous la forme /2016/04/02/ (2 avril 2016)
-├── index.php
-├── README.md
-├── 2015
-│   ├── 03
-│   │   └── 27
-│   │       └── image.png
-│   └── 04
-│       ├── 01
-│       │   └── image.png
-│       └── 02
-│           ├── image.png
-│           ├── fichier.txt
-│           └── image.png
-├── 2016
-│   ├── 05
-│   │   └── 15
-│   │       └── image.png
-│   └── 09
-│       ├── 12
-│       │   └── image.png
-│       └── 28
-│           ├── image.png
-│           ├── fichier.txt
-│           └── image.png
+
++-- index.php
++-- README.md
++-- 2015
+|   +-- 03
+|   |    +-- 27
+|   |       +-- image.png
+|   +-- 04
+│       +-- 01
+│           +-- image.png
+│       +-- 02
+│           +-- image.png
+│           +-- fichier.txt
+│           +-- image.png
++-- 2016
+│   +-- 05
+│   │   +-- 15
+│   │       +-- image.png
+│   +-- 09
+│       +-- 12
+│       │   +-- image.png
+│       +-- 28
+│           +-- image.png
+│           +-- fichier.txt
+│           +-- image.png

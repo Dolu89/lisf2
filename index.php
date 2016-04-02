@@ -11,6 +11,59 @@
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+        <style>
+            body {    
+                background-color:#ecf0f1;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .date{
+                background-color:#2c3e50;
+                text-align:center;
+                padding:5px;
+                color:#2980b9;
+            }
+            a.dateLink:hover{
+                color:#ecf0f1;
+            }
+            .year{
+                font-size:20px;
+            }
+            .month{
+                font-size:18px;
+            }
+            a{
+                text-decoration: none;
+                color:#7f8c8d;
+            }
+            .main{
+                margin-top:15px;
+                width:75%;
+                margin-left:auto;
+                margin-right:auto;
+            }
+            .dayContent{
+                margin-bottom:20px;
+                background-color:#bdc3c7;
+                padding:10px;
+            }
+            .day{
+                font-size:18px;
+                color:#2980b9;
+                display:block;
+                margin-bottom:3px;
+            }
+            .imageLink{
+                margin-right:7px;
+            }
+            .fileLink{
+                display:block;
+                font-size:17px;
+            }
+            a.fileLink:hover{
+                color:#2c3e50;
+            }
+        </style>
 </head>
 <body>
 	<?php 
@@ -48,18 +101,18 @@
 			global $exclude_list, $install_path;
 			$tempYears = array_diff(scandir($install_path), $exclude_list);
 			$i = 0;
-			echo "<div>";
+			echo "<div class='date year'>";
 			foreach ($tempYears as $tempYear) {
 				$years[$i] = $tempYear;
 				++$i;
 			}
 			$i = 0;
 			foreach ($years as $year) {
-				if ($i > 0) echo " - ";
+				if ($i > 0) echo " ";
 				if ($year == $_GET['year'])
-					echo $year;
+					echo '['.$year.']';
 				else
-					echo '<a href="/'.$year.'/'.getLastMonthByYear($year).'">'.$year.'</a>';
+					echo '<a href="/'.$year.'/'.getLastMonthByYear($year).'" class="dateLink">'.$year.'</a>';
 				++$i;
 			}
 			echo "</div>";
@@ -70,13 +123,13 @@
 			global $exclude_list, $install_path;
 			$months = array_diff(scandir($install_path.$_GET['year']), $exclude_list);
 			$i = 0;
-			echo "<div>";
+			echo "<div class='date month'>";
 			foreach ($months as $month) {
-				if ($i > 0) echo " - ";
+				if ($i > 0) echo " ";
 				if ($month == $_GET['month'])
-					echo transformIntToMonth($month);
+					echo '['.transformIntToMonth($month).']';
 				else
-					echo '<a href="/'.$_GET["year"].'/'.$month.'">'.transformIntToMonth($month).'</a>';
+					echo '<a href="/'.$_GET["year"].'/'.$month.'" class="dateLink">'.transformIntToMonth($month).'</a>';
 				++$i;
 			}
 			echo "</div>";
@@ -86,19 +139,28 @@
 		function list_day(){
 			global $exclude_list, $install_path;
 			$days = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']), $exclude_list);
-			echo "<div>";
+			echo "<div class='main'>";
 			foreach ($days as $day) {
 				$files = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']."/".$day), $exclude_list);
-				echo "<div>";
-				echo $day.'<br>';
+				echo "<div class='dayContent'>";
+				echo '<span class="day">'.$day.'</span>';
 				foreach ($files as $file) {
 					$linkFile = $day."/".$file;
 					if (checkFileIsImage($install_path.$_GET['year']."/".$_GET['month']."/".$linkFile)){
 						$newFormatLink = str_replace(" ", "%20", $linkFile);
 						$newFormatFile = str_replace(" ", "%20", $file);
-						echo "<a href='".$newFormatLink."'><img src='".$newFormatLink."' width='106' height='106' alt='".$newFormatFile."'></a>";
+						echo "<a href='".$newFormatLink."' class='imageLink'><img src='".$newFormatLink."' width='106' height='106' alt='".$newFormatFile."'></a>";
 					}
 				}
+                echo '<div>';
+                foreach ($files as $file) {
+					$linkFile = $day."/".$file;
+                    $newFormatLink = str_replace(" ", "%20", $linkFile);
+                    $newFormatFile = str_replace(" ", "%20", $file);
+                    echo "<a href='".$newFormatLink."' class='fileLink'>".$file."</a>";
+				}
+                echo '</div>';
+                
 				echo "</div>";
 			}
 			echo "</div>";

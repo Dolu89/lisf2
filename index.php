@@ -121,7 +121,7 @@
 				++$i;
 			}
 			echo "</div>";
-			list_month($years);
+			list_month();
 		}
 
 		function list_month(){
@@ -145,29 +145,39 @@
 			global $exclude_list, $install_path;
 			$days = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']), $exclude_list);
 			echo "<div class='main'>";
-			foreach ($days as $day) {
-				$files = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']."/".$day), $exclude_list);
-				echo "<div class='dayContent'>";
-				echo '<span class="day">'.$day.'</span>';
-				foreach ($files as $file) {
-					$linkFile = $day."/".$file;
-					if (checkFileIsImage($install_path.$_GET['year']."/".$_GET['month']."/".$linkFile)){
-						$newFormatLink = str_replace(" ", "%20", $linkFile);
-						$newFormatFile = str_replace(" ", "%20", $file);
-						echo "<a href='".$newFormatLink."' class='imageLink'><img src='".$newFormatLink."' width='106' height='106' alt='".$newFormatFile."'></a>";
-					}
-				}
-                echo '<div>';
-                foreach ($files as $file) {
-					$linkFile = $day."/".$file;
-                    $newFormatLink = str_replace(" ", "%20", $linkFile);
-                    $newFormatFile = str_replace(" ", "%20", $file);
-                    echo "<a href='".$newFormatLink."' class='fileLink'>".$file."</a>";
-				}
-                echo '</div>';
-                
-				echo "</div>";
-			}
+			if($days == null)
+            {
+                echo "<div class='dayContent'>";
+                echo "<span class='fileLink'>Nothing to see here...</span>";
+                echo "<a href='/' class='fileLink'>Go to the last date</a>";
+                echo "</div>";
+            }
+            else
+            {
+                foreach ($days as $day) {
+                    $files = array_diff(scandir($install_path.$_GET['year']."/".$_GET['month']."/".$day), $exclude_list);
+                    echo "<div class='dayContent'>";
+                    echo '<span class="day">'.$day.'</span>';
+                    foreach ($files as $file) {
+                        $linkFile = $day."/".$file;
+                        if (checkFileIsImage($install_path.$_GET['year']."/".$_GET['month']."/".$linkFile)){
+                            $newFormatLink = str_replace(" ", "%20", $linkFile);
+                            $newFormatFile = str_replace(" ", "%20", $file);
+                            echo "<a href='".$newFormatLink."' class='imageLink'><img src='".$newFormatLink."' width='106' height='106' alt='".$newFormatFile."'></a>";
+                        }
+                    }
+                    echo '<div>';
+                    foreach ($files as $file) {
+                        $linkFile = $day."/".$file;
+                        $newFormatLink = str_replace(" ", "%20", $linkFile);
+                        $newFormatFile = str_replace(" ", "%20", $file);
+                        echo "<a href='".$newFormatLink."' class='fileLink'>".$file."</a>";
+                    }
+                    echo '</div>';
+                    
+                    echo "</div>";
+			    }
+            }
 			echo "</div>";
 		}
 
